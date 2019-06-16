@@ -1,27 +1,38 @@
 package com.example.ekipaapp.viewmodel;
 
 import android.app.Application;
+import android.util.Log;
 
 import androidx.lifecycle.AndroidViewModel;
-import androidx.lifecycle.LiveData;
 
 import com.example.ekipaapp.entity.Event;
 import com.example.ekipaapp.repo.EventRepository;
-
-import java.util.List;
+import com.google.firebase.database.DatabaseReference;
 
 public class EventViewModel extends AndroidViewModel {
 
-    private final LiveData<List<Event>> allEvents;
+    private static int counter = 0;
+
+    //private final LiveData<List<Event>> allEvents;
     private EventRepository repo;
 
     public EventViewModel(Application application) {
         super(application);
         this.repo = new EventRepository(getApplication());
-        allEvents = repo.getAllEvents();
+        //allEvents = repo.getAllEvents();
+        counter++;
+        Log.d("PARAPET", "EventViewModel: " + counter);
     }
 
-    public LiveData<List<Event>> getAllEvents() {
-        return allEvents;
+    public DatabaseReference getAllEvents() {
+        return repo.getAllEvents();
+    }
+
+    public void removeAllEvents() {
+        repo.deleteAllEvents();
+    }
+
+    public void insertEvent(Event event) {
+        repo.insertEvent(event);
     }
 }

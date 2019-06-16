@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <EditText
+        android:id="@+id/eventNameEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:ems="10"
+        android:hint="@string/event_name"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/addEventButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/add_me"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/urlEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/url"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="@+id/eventNameEditText"
+        app:layout_constraintStart_toStartOf="@+id/eventNameEditText"
+        app:layout_constraintTop_toBottomOf="@+id/eventNameEditText" />
+
+    <EditText
+        android:id="@+id/personCostEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/per_person_cost"
+        android:inputType="number"
+        app:layout_constraintEnd_toEndOf="@+id/urlEditText"
+        app:layout_constraintStart_toStartOf="@+id/urlEditText"
+        app:layout_constraintTop_toBottomOf="@+id/urlEditText" />
+
+    <EditText
+        android:id="@+id/routeLengthEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Route length"
+        android:inputType="number"
+        app:layout_constraintEnd_toEndOf="@+id/personCostEditText"
+        app:layout_constraintStart_toStartOf="@+id/personCostEditText"
+        app:layout_constraintTop_toBottomOf="@+id/personCostEditText" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

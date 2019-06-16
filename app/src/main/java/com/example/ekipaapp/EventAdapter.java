@@ -4,6 +4,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -26,15 +27,18 @@ class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull EventViewHolder holder, int position) {
         if (eventList == null) {
-            holder.button.setText("NULL");
+            holder.nameTextView.setText("NULL");
             return;
         }
         Event event = eventList.get(position);
-        holder.button.setText(event.getName());
-
+        holder.nameTextView.setText(event.getName());
+        holder.urlTextView.setText(event.getUrl());
+        holder.routeTextView.setText(String.valueOf(event.getRouteLength()));
+        holder.rentPerPersonTextView.setText(String.valueOf(event.getRentalCostPerPerson()));
+        holder.rentTextView.setText(String.valueOf(event.getRentalCostOverall()));
     }
 
-    public void setEventList(List<Event> eventList) {
+    void setEventList(List<Event> eventList) {
         this.eventList = eventList;
         notifyDataSetChanged();
     }
@@ -49,11 +53,19 @@ class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHolder> {
 
     class EventViewHolder extends RecyclerView.ViewHolder {
 
-        private final Button button;
+        private final TextView nameTextView;
+        private final TextView rentTextView;
+        private final TextView urlTextView;
+        private final TextView routeTextView;
+        private final TextView rentPerPersonTextView;
 
-        public EventViewHolder(@NonNull View itemView) {
+        EventViewHolder(@NonNull View itemView) {
             super(itemView);
-            button = itemView.findViewById(R.id.button);
+            nameTextView = itemView.findViewById(R.id.nameTextView);
+            urlTextView = itemView.findViewById(R.id.urlTextView);
+            routeTextView = itemView.findViewById(R.id.routeLengthTextView);
+            rentPerPersonTextView = itemView.findViewById(R.id.rentalCostPerPersonTextView);
+            rentTextView = itemView.findViewById(R.id.rentalCostOverallTextView);
         }
     }
 }

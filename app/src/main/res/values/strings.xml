@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">EkipaApp</string>
+    <string name="event_name">Event name</string>
+    <string name="add_me">Add me!</string>
+    <string name="url">URL</string>
+    <string name="per_person_cost">Per person cost</string>
 </resources>
