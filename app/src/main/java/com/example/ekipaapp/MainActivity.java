@@ -2,7 +2,6 @@ package com.example.ekipaapp;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.NonNull;
@@ -12,7 +11,6 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.ekipaapp.entity.Event;
 import com.example.ekipaapp.viewmodel.EventViewModel;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -44,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void initializeViews() {
         eventRecyclerList = findViewById(R.id.event_list);
-        final EventAdapter eventAdapter = new EventAdapter();
+        final EventAdapter eventAdapter = new EventAdapter(this);
         eventRecyclerList.setAdapter(eventAdapter);
         eventRecyclerList.setLayoutManager(new LinearLayoutManager(this));
         findViewById(R.id.open_add_event).setOnClickListener(this::openAddEventActivity);
@@ -67,9 +65,9 @@ public class MainActivity extends AppCompatActivity {
         viewModel.getAllEvents().addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                List<Event> eventList = new ArrayList<>();
+                List<DataSnapshot> eventList = new ArrayList<>();
                 for (DataSnapshot eventSnapshot : dataSnapshot.getChildren()) {
-                    eventList.add(eventSnapshot.getValue(Event.class));
+                    eventList.add(eventSnapshot);
                 }
                 EventAdapter eventAdapter = (EventAdapter) eventRecyclerList.getAdapter();
                 eventAdapter.setEventList(eventList);

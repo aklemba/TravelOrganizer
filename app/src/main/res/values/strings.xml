@@ -4,4 +4,6 @@
     <string name="add_me">Add me!</string>
     <string name="url">URL</string>
     <string name="per_person_cost">Per person cost</string>
+    <string name="edit_confirm">Confirm edit</string>
+    <string name="edit_event">Edit</string>
 </resources>

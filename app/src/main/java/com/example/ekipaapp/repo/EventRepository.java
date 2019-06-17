@@ -25,4 +25,12 @@ public class EventRepository {
     public DatabaseReference getAllEvents() {
         return dao.getAllEvents();
     }
+
+    public DatabaseReference getEventById(String eventKey) {
+        return dao.getEventByKey(eventKey);
+    }
+
+    public void updateEvent(String key, Event event) {
+        dao.updateEvent(key, event);
+    }
 }

@@ -35,4 +35,12 @@ public class EventViewModel extends AndroidViewModel {
     public void insertEvent(Event event) {
         repo.insertEvent(event);
     }
+
+    public DatabaseReference getEventById(String eventKey) {
+        return repo.getEventById(eventKey);
+    }
+
+    public void updateEvent(String key, Event event) {
+        repo.updateEvent(key, event);
+    }
 }

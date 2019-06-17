@@ -21,4 +21,12 @@ public class FirebaseDao {
     public void removeAllEvents() {
         FIREBASE_DATABASE.getReference(EVENT_LIST).removeValue();
     }
+
+    public DatabaseReference getEventByKey(String eventKey) {
+        return FIREBASE_DATABASE.getReference(EVENT_LIST).child(eventKey);
+    }
+
+    public void updateEvent(String key, Event event) {
+        FIREBASE_DATABASE.getReference(EVENT_LIST).child(key).setValue(event);
+    }
 }

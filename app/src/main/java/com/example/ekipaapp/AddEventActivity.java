@@ -26,7 +26,7 @@ public class AddEventActivity extends AppCompatActivity {
     private void initialize() {
         viewModel = ViewModelProviders.of(this).get(EventViewModel.class);
 
-        findViewById(R.id.addEventButton).setOnClickListener(this::addEvent);
+        findViewById(R.id.confirmEventButton).setOnClickListener(this::addEvent);
 
     }
 
