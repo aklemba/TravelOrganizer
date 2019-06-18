@@ -6,7 +6,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import static com.example.ekipaapp.firebase.FirebaseDatabaseConsts.EVENT_LIST;
 
-public class FirebaseDao {
+public class FirebaseEventDao {
 
     private final static FirebaseDatabase FIREBASE_DATABASE = FirebaseDatabase.getInstance();
 
@@ -28,5 +28,9 @@ public class FirebaseDao {
 
     public void updateEvent(String key, Event event) {
         FIREBASE_DATABASE.getReference(EVENT_LIST).child(key).setValue(event);
+    }
+
+    public void removeEvent(String key) {
+        FIREBASE_DATABASE.getReference(EVENT_LIST).child(key).removeValue();
     }
 }

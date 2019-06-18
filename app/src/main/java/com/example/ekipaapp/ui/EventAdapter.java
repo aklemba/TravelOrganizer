@@ -1,4 +1,4 @@
-package com.example.ekipaapp;
+package com.example.ekipaapp.ui;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,7 +11,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.ekipaapp.R;
 import com.example.ekipaapp.entity.Event;
+import com.example.ekipaapp.viewmodel.EventViewModel;
 import com.google.firebase.database.DataSnapshot;
 
 import java.util.List;
@@ -19,10 +21,12 @@ import java.util.List;
 class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHolder> {
 
     private final Context context;
+    private final EventViewModel eventViewModel;
     private List<DataSnapshot> eventList;
 
-    EventAdapter(Context context) {
+    EventAdapter(Context context, EventViewModel eventViewModel) {
         this.context = context;
+        this.eventViewModel = eventViewModel;
     }
 
     @NonNull
@@ -50,13 +54,15 @@ class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHolder> {
             intent.putExtra(EditEventActivity.EVENT_ID, data.getKey());
             context.startActivity(intent);
         });
+        holder.removeButton.setOnClickListener(v -> {
+            eventViewModel.removeEvent(data.getKey());
+        });
     }
 
     void setEventList(List<DataSnapshot> eventList) {
         this.eventList = eventList;
         notifyDataSetChanged();
     }
-
 
     @Override
     public int getItemCount() {
@@ -74,6 +80,7 @@ class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHolder> {
         private final TextView routeTextView;
         private final TextView rentPerPersonTextView;
         private final Button editButton;
+        private final Button removeButton;
 
         EventViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -83,6 +90,7 @@ class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHolder> {
             rentPerPersonTextView = itemView.findViewById(R.id.rentalCostPerPersonTextView);
             rentTextView = itemView.findViewById(R.id.rentalCostOverallTextView);
             editButton = itemView.findViewById(R.id.editButton);
+            removeButton = itemView.findViewById(R.id.removeButton);
         }
     }
 }

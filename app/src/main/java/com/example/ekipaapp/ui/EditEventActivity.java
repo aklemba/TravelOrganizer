@@ -1,4 +1,4 @@
-package com.example.ekipaapp;
+package com.example.ekipaapp.ui;
 
 import android.os.Bundle;
 import android.widget.Button;
@@ -10,6 +10,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.example.ekipaapp.R;
 import com.example.ekipaapp.entity.Event;
 import com.example.ekipaapp.viewmodel.EventViewModel;
 import com.google.firebase.database.DataSnapshot;
