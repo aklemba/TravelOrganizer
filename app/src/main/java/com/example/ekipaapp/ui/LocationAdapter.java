@@ -12,67 +12,67 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.ekipaapp.R;
-import com.example.ekipaapp.entity.Event;
-import com.example.ekipaapp.viewmodel.EventViewModel;
+import com.example.ekipaapp.entity.Location;
+import com.example.ekipaapp.viewmodel.LocationViewModel;
 import com.google.firebase.database.DataSnapshot;
 
 import java.util.List;
 
-class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHolder> {
+class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.LocationViewHolder> {
 
     private final Context context;
-    private final EventViewModel eventViewModel;
-    private List<DataSnapshot> eventList;
+    private final LocationViewModel locationViewModel;
+    private List<DataSnapshot> locationList;
 
-    EventAdapter(Context context, EventViewModel eventViewModel) {
+    LocationAdapter(Context context, LocationViewModel locationViewModel) {
         this.context = context;
-        this.eventViewModel = eventViewModel;
+        this.locationViewModel = locationViewModel;
     }
 
     @NonNull
     @Override
-    public EventViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.custom_event, parent, false);
-        return new EventViewHolder(view);
+    public LocationViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.custom_location, parent, false);
+        return new LocationViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull EventViewHolder holder, int position) {
-        if (eventList == null) {
+    public void onBindViewHolder(@NonNull LocationViewHolder holder, int position) {
+        if (locationList == null) {
             holder.nameTextView.setText("NULL");
             return;
         }
-        DataSnapshot data = eventList.get(position);
-        Event event = data.getValue(Event.class);
-        holder.nameTextView.setText(event.getName());
-        holder.urlTextView.setText(event.getUrl());
-        holder.routeTextView.setText(String.valueOf(event.getRouteLength()));
-        holder.rentPerPersonTextView.setText(String.valueOf(event.getRentalCostPerPerson()));
-        holder.rentTextView.setText(String.valueOf(event.getRentalCostOverall()));
+        DataSnapshot data = locationList.get(position);
+        Location location = data.getValue(Location.class);
+        holder.nameTextView.setText(location.getName());
+        holder.urlTextView.setText(location.getUrl());
+        holder.routeTextView.setText(String.valueOf(location.getRouteLength()));
+        holder.rentPerPersonTextView.setText(String.valueOf(location.getRentalCostPerPerson()));
+        holder.rentTextView.setText(String.valueOf(location.getRentalCostOverall()));
         holder.editButton.setOnClickListener(v -> {
-            Intent intent = new Intent(context, EditEventActivity.class);
-            intent.putExtra(EditEventActivity.EVENT_ID, data.getKey());
+            Intent intent = new Intent(context, EditLocationActivity.class);
+            intent.putExtra(EditLocationActivity.EVENT_ID, data.getKey());
             context.startActivity(intent);
         });
         holder.removeButton.setOnClickListener(v -> {
-            eventViewModel.removeEvent(data.getKey());
+            locationViewModel.removeLocation(data.getKey());
         });
     }
 
-    void setEventList(List<DataSnapshot> eventList) {
-        this.eventList = eventList;
+    void setLocationList(List<DataSnapshot> locationList) {
+        this.locationList = locationList;
         notifyDataSetChanged();
     }
 
     @Override
     public int getItemCount() {
-        if (eventList == null) {
+        if (locationList == null) {
             return 0;
         }
-        return eventList.size();
+        return locationList.size();
     }
 
-    class EventViewHolder extends RecyclerView.ViewHolder {
+    class LocationViewHolder extends RecyclerView.ViewHolder {
 
         private final TextView nameTextView;
         private final TextView rentTextView;
@@ -82,7 +82,7 @@ class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHolder> {
         private final Button editButton;
         private final Button removeButton;
 
-        EventViewHolder(@NonNull View itemView) {
+        LocationViewHolder(@NonNull View itemView) {
             super(itemView);
             nameTextView = itemView.findViewById(R.id.nameTextView);
             urlTextView = itemView.findViewById(R.id.urlTextView);

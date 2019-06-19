@@ -7,19 +7,19 @@
     android:layout_height="match_parent">
 
     <EditText
-        android:id="@+id/eventNameEditText"
+        android:id="@+id/locationNameEditText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:ems="10"
-        android:hint="@string/event_name"
+        android:hint="@string/location_name"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/confirmEventButton"
+        android:id="@+id/confirmLocationButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/add_me"
@@ -35,9 +35,9 @@
         android:ems="10"
         android:hint="@string/url"
         android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="@+id/eventNameEditText"
-        app:layout_constraintStart_toStartOf="@+id/eventNameEditText"
-        app:layout_constraintTop_toBottomOf="@+id/eventNameEditText" />
+        app:layout_constraintEnd_toEndOf="@+id/locationNameEditText"
+        app:layout_constraintStart_toStartOf="@+id/locationNameEditText"
+        app:layout_constraintTop_toBottomOf="@+id/locationNameEditText" />
 
     <EditText
         android:id="@+id/personCostEditText"

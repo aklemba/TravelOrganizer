@@ -1,6 +1,6 @@
 package com.example.ekipaapp.entity;
 
-public class Event {
+public class Location {
 
     private String name;
 
@@ -12,9 +12,9 @@ public class Event {
 
     private int routeLength;
 
-    public Event(){}
+    public Location(){}
 
-    public Event(String name) {
+    public Location(String name) {
         this.name = name;
     }
 

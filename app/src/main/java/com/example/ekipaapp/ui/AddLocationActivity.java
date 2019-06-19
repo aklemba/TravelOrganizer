@@ -9,45 +9,45 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.ekipaapp.R;
-import com.example.ekipaapp.entity.Event;
-import com.example.ekipaapp.viewmodel.EventViewModel;
+import com.example.ekipaapp.entity.Location;
+import com.example.ekipaapp.viewmodel.LocationViewModel;
 
-public class AddEventActivity extends AppCompatActivity {
+public class AddLocationActivity extends AppCompatActivity {
 
-    private EventViewModel viewModel;
+    private LocationViewModel viewModel;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.add_event_layout);
+        setContentView(R.layout.add_location_layout);
 
         initialize();
     }
 
     private void initialize() {
-        viewModel = ViewModelProviders.of(this).get(EventViewModel.class);
+        viewModel = ViewModelProviders.of(this).get(LocationViewModel.class);
 
-        findViewById(R.id.confirmEventButton).setOnClickListener(this::addEvent);
+        findViewById(R.id.confirmLocationButton).setOnClickListener(this::addLocation);
 
     }
 
-    private void addEvent(View view) {
-        EditText eventNameEditText = findViewById(R.id.eventNameEditText);
+    private void addLocation(View view) {
+        EditText locationNameEditText = findViewById(R.id.locationNameEditText);
         EditText urlEditText = findViewById(R.id.urlEditText);
         EditText personCostEditText = findViewById(R.id.personCostEditText);
         EditText routeLengthEditText = findViewById(R.id.routeLengthEditText);
 
-        Event newEvent = new Event(eventNameEditText.getText().toString());
-        newEvent.setUrl(urlEditText.getText().toString());
+        Location newLocation = new Location(locationNameEditText.getText().toString());
+        newLocation.setUrl(urlEditText.getText().toString());
         String personCostText = personCostEditText.getText().toString();
         if (!personCostText.isEmpty()) {
-            newEvent.setRentalCostPerPerson(Integer.parseInt(personCostText));
+            newLocation.setRentalCostPerPerson(Integer.parseInt(personCostText));
         }
         String routeLengthText = routeLengthEditText.getText().toString();
         if (!routeLengthText.isEmpty()) {
-            newEvent.setRouteLength(Integer.parseInt(routeLengthText));
+            newLocation.setRouteLength(Integer.parseInt(routeLengthText));
         }
-        viewModel.insertEvent(newEvent);
+        viewModel.insertLocation(newLocation);
         finish();
     }
 

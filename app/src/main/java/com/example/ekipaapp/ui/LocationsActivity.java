@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.ekipaapp.R;
-import com.example.ekipaapp.viewmodel.EventViewModel;
+import com.example.ekipaapp.viewmodel.LocationViewModel;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -22,15 +22,15 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class LocationsActivity extends AppCompatActivity {
 
-    private RecyclerView eventRecyclerList;
-    private EventViewModel viewModel;
+    private RecyclerView locationRecyclerList;
+    private LocationViewModel viewModel;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main_activity);
+        setContentView(R.layout.locations_activity);
         initialize();
         if (!checkIfLoggedIn()) {
             startLoginActivity();
@@ -55,25 +55,25 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initializeDatabaseAccess() {
-        viewModel = ViewModelProviders.of(this).get(EventViewModel.class);
+        viewModel = ViewModelProviders.of(this).get(LocationViewModel.class);
     }
 
     private void initializeViews() {
-        eventRecyclerList = findViewById(R.id.event_list);
-        final EventAdapter eventAdapter = new EventAdapter(this, viewModel);
-        eventRecyclerList.setAdapter(eventAdapter);
-        eventRecyclerList.setLayoutManager(new LinearLayoutManager(this));
-        findViewById(R.id.open_add_event).setOnClickListener(this::openAddEventActivity);
+        locationRecyclerList = findViewById(R.id.location_list);
+        final LocationAdapter locationAdapter = new LocationAdapter(this, viewModel);
+        locationRecyclerList.setAdapter(locationAdapter);
+        locationRecyclerList.setLayoutManager(new LinearLayoutManager(this));
+        findViewById(R.id.open_add_location).setOnClickListener(this::openAddLocationActivity);
     }
 
-    private void openAddEventActivity(View view) {
-        Intent intent = new Intent(this, AddEventActivity.class);
+    private void openAddLocationActivity(View view) {
+        Intent intent = new Intent(this, AddLocationActivity.class);
         startActivity(intent);
     }
 
     void initializeListeners() {
         findViewById(R.id.logoutButton).setOnClickListener(this::logout);
-        viewModel.getAllEvents().addValueEventListener(eventsListener);
+        viewModel.getAllLocations().addValueEventListener(locationsListener);
     }
 
     private void logout(View view) {
@@ -81,15 +81,15 @@ public class MainActivity extends AppCompatActivity {
         startLoginActivity();
     }
 
-    private final ValueEventListener eventsListener = new ValueEventListener() {
+    private final ValueEventListener locationsListener = new ValueEventListener() {
         @Override
         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-            List<DataSnapshot> eventList = new ArrayList<>();
-            for (DataSnapshot eventSnapshot : dataSnapshot.getChildren()) {
-                eventList.add(eventSnapshot);
+            List<DataSnapshot> locationList = new ArrayList<>();
+            for (DataSnapshot locationSnapshot : dataSnapshot.getChildren()) {
+                locationList.add(locationSnapshot);
             }
-            EventAdapter eventAdapter = (EventAdapter) eventRecyclerList.getAdapter();
-            eventAdapter.setEventList(eventList);
+            LocationAdapter locationAdapter = (LocationAdapter) locationRecyclerList.getAdapter();
+            locationAdapter.setLocationList(locationList);
         }
 
         @Override
@@ -107,6 +107,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        viewModel.getAllEvents().removeEventListener(eventsListener);
+        viewModel.getAllLocations().removeEventListener(locationsListener);
     }
 }
