@@ -1,4 +1,4 @@
-package com.example.ekipaapp.ui;
+package com.example.ekipaapp.ui.auth;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,6 +10,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.ekipaapp.R;
+import com.example.ekipaapp.ui.location.LocationsActivity;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class RegistrationActivity extends AppCompatActivity {

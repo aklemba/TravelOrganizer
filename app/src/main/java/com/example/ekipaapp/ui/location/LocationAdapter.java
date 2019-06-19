@@ -1,4 +1,4 @@
-package com.example.ekipaapp.ui;
+package com.example.ekipaapp.ui.location;
 
 import android.content.Context;
 import android.content.Intent;
@@ -22,11 +22,14 @@ class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.LocationViewH
 
     private final Context context;
     private final LocationViewModel locationViewModel;
+    private final String eventKey;
+
     private List<DataSnapshot> locationList;
 
-    LocationAdapter(Context context, LocationViewModel locationViewModel) {
+    LocationAdapter(Context context, LocationViewModel locationViewModel, String eventKey) {
         this.context = context;
         this.locationViewModel = locationViewModel;
+        this.eventKey = eventKey;
     }
 
     @NonNull
@@ -51,11 +54,12 @@ class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.LocationViewH
         holder.rentTextView.setText(String.valueOf(location.getRentalCostOverall()));
         holder.editButton.setOnClickListener(v -> {
             Intent intent = new Intent(context, EditLocationActivity.class);
-            intent.putExtra(EditLocationActivity.EVENT_ID, data.getKey());
+            intent.putExtra(EditLocationActivity.LOCATION_KEY, data.getKey());
+            intent.putExtra(LocationsActivity.EVENT_KEY, eventKey);
             context.startActivity(intent);
         });
         holder.removeButton.setOnClickListener(v -> {
-            locationViewModel.removeLocation(data.getKey());
+            locationViewModel.removeLocation(data.getKey(), eventKey);
         });
     }
 

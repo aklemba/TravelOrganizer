@@ -1,8 +1,7 @@
-package com.example.ekipaapp.ui;
+package com.example.ekipaapp.ui.location;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.NonNull;
@@ -23,13 +22,17 @@ import java.util.List;
 
 public class LocationsActivity extends AppCompatActivity {
 
+    public static final String EVENT_KEY = "eventKey";
+
     private RecyclerView locationRecyclerList;
     private LocationViewModel viewModel;
+    private String eventKey;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.locations_activity);
+        eventKey = getIntent().getStringExtra(EVENT_KEY);
         initialize();
     }
 
@@ -44,7 +47,7 @@ public class LocationsActivity extends AppCompatActivity {
 
     private void initializeViews() {
         locationRecyclerList = findViewById(R.id.location_list);
-        final LocationAdapter locationAdapter = new LocationAdapter(this, viewModel);
+        final LocationAdapter locationAdapter = new LocationAdapter(this, viewModel, eventKey);
         locationRecyclerList.setAdapter(locationAdapter);
         locationRecyclerList.setLayoutManager(new LinearLayoutManager(this));
         findViewById(R.id.open_add_location).setOnClickListener(this::openAddLocationActivity);
@@ -52,11 +55,12 @@ public class LocationsActivity extends AppCompatActivity {
 
     private void openAddLocationActivity(View view) {
         Intent intent = new Intent(this, AddLocationActivity.class);
+        intent.putExtra(EVENT_KEY, eventKey);
         startActivity(intent);
     }
 
     void initializeListeners() {
-        viewModel.getAllLocations().addValueEventListener(locationsListener);
+        viewModel.getAllLocationsForEvent(eventKey).addValueEventListener(locationsListener);
     }
 
     private final ValueEventListener locationsListener = new ValueEventListener() {

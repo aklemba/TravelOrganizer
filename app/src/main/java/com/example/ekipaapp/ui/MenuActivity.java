@@ -8,10 +8,13 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.ekipaapp.R;
+import com.example.ekipaapp.ui.auth.LoginActivity;
+import com.example.ekipaapp.ui.event.EventsActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class MenuActivity extends AppCompatActivity {
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,7 +34,7 @@ public class MenuActivity extends AppCompatActivity {
         });
 
         Button eventsButton = findViewById(R.id.eventListButton);
-        eventsButton.setOnClickListener(v -> startLocationActivity());
+        eventsButton.setOnClickListener(v -> startEventsActivity());
     }
 
     private boolean checkIfLoggedIn() {
@@ -49,8 +52,8 @@ public class MenuActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private void startLocationActivity() {
-        Intent intent = new Intent(this, LocationsActivity.class);
+    private void startEventsActivity() {
+        Intent intent = new Intent(this, EventsActivity.class);
         startActivity(intent);
     }
 

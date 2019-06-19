@@ -1,4 +1,4 @@
-package com.example.ekipaapp.ui;
+package com.example.ekipaapp.ui.location;
 
 import android.os.Bundle;
 import android.widget.Button;
@@ -18,9 +18,12 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 
+import static com.example.ekipaapp.ui.location.LocationsActivity.EVENT_KEY;
+
 public class EditLocationActivity extends AppCompatActivity {
 
-    public static final String EVENT_ID = "locationKey";
+    public static final String LOCATION_KEY = "locationKey";
+
     private LocationViewModel locationViewModel;
     private DatabaseReference locationData;
     private TextView locationNameEditText;
@@ -29,6 +32,7 @@ public class EditLocationActivity extends AppCompatActivity {
     private TextView routeLengthEditText;
     private DataSnapshot locationSnapshot;
     private Button editButton;
+    private String eventKey;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -45,12 +49,13 @@ public class EditLocationActivity extends AppCompatActivity {
     }
 
     private void getAndShowLocation() {
-        String locationKey = getIntent().getStringExtra(EVENT_ID);
+        String locationKey = getIntent().getStringExtra(LOCATION_KEY);
+        eventKey = getIntent().getStringExtra(EVENT_KEY);
         if (locationKey == null) {
             Toast.makeText(this, "No location passed", Toast.LENGTH_SHORT).show();
             finish();
         }
-        locationData = locationViewModel.getLocationById(locationKey);
+        locationData = locationViewModel.getLocationByKey(locationKey, eventKey);
         locationData.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -101,7 +106,7 @@ public class EditLocationActivity extends AppCompatActivity {
         location.setRentalCostPerPerson(personCost);
         location.setRouteLength(routeLength);
 
-        locationViewModel.updateLocation(locationSnapshot.getKey(), location);
+        locationViewModel.updateLocation(locationSnapshot.getKey(), location, eventKey);
         finish();
     }
 

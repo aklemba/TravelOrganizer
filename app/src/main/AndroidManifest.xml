@@ -14,10 +14,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.LocationsActivity"/>
-        <activity android:name=".ui.AddLocationActivity" />
-        <activity android:name=".ui.EditLocationActivity" />
-        <activity android:name=".ui.LoginActivity" />
-        <activity android:name=".ui.RegistrationActivity" />
+        <activity android:name=".ui.location.LocationsActivity"/>
+        <activity android:name=".ui.location.AddLocationActivity" />
+        <activity android:name=".ui.location.EditLocationActivity" />
+        <activity android:name=".ui.auth.LoginActivity" />
+        <activity android:name=".ui.auth.RegistrationActivity" />
+        <activity android:name=".ui.event.EventsActivity" />
+        <activity android:name=".ui.event.AddEventActivity" />
     </application>
 </manifest>

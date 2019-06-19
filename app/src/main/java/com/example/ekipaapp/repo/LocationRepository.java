@@ -18,23 +18,27 @@ public class LocationRepository {
         dao.removeAllLocations();
     }
 
-    public void insertLocation(Location location) {
-        dao.insertLocation(location);
+    public void insertLocationForEvent(Location location, String eventKey) {
+        dao.insertLocationForEvent(location, eventKey);
     }
 
     public DatabaseReference getAllLocations() {
         return dao.getAllLocations();
     }
 
-    public DatabaseReference getLocationById(String locationKey) {
-        return dao.getLocationByKey(locationKey);
+    public DatabaseReference getLocationByKey(String locationKey, String eventKey) {
+        return dao.getLocationByKey(locationKey, eventKey);
     }
 
-    public void updateLocation(String key, Location location) {
-        dao.updateLocation(key, location);
+    public void updateLocation(String locationKey, Location location, String eventKey) {
+        dao.updateLocation(locationKey, location, eventKey);
     }
 
-    public void removeLocation(String key) {
-        dao.removeLocation(key);
+    public void removeLocation(String locationKey, String eventKey) {
+        dao.removeLocation(locationKey, eventKey);
+    }
+
+    public DatabaseReference getAllLocationsForEvent(String eventKey) {
+        return dao.getAllLocationsForEvent(eventKey);
     }
 }

@@ -1,7 +1,6 @@
 package com.example.ekipaapp.viewmodel;
 
 import android.app.Application;
-import android.util.Log;
 
 import androidx.lifecycle.AndroidViewModel;
 
@@ -26,19 +25,23 @@ public class LocationViewModel extends AndroidViewModel {
         repo.deleteAllLocations();
     }
 
-    public void insertLocation(Location location) {
-        repo.insertLocation(location);
+    public void insertLocationForEvent(Location location, String eventKey) {
+        repo.insertLocationForEvent(location, eventKey);
     }
 
-    public DatabaseReference getLocationById(String locationKey) {
-        return repo.getLocationById(locationKey);
+    public DatabaseReference getLocationByKey(String locationKey, String eventKey) {
+        return repo.getLocationByKey(locationKey, eventKey);
     }
 
-    public void updateLocation(String key, Location location) {
-        repo.updateLocation(key, location);
+    public void updateLocation(String locationKey, Location location, String eventKey) {
+        repo.updateLocation(locationKey, location, eventKey);
     }
 
-    public void removeLocation(String key) {
-        repo.removeLocation(key);
+    public void removeLocation(String locationKey, String eventKey) {
+        repo.removeLocation(locationKey, eventKey);
+    }
+
+    public DatabaseReference getAllLocationsForEvent(String eventKey) {
+        return repo.getAllLocationsForEvent(eventKey);
     }
 }

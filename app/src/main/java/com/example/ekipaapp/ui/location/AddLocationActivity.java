@@ -1,4 +1,4 @@
-package com.example.ekipaapp.ui;
+package com.example.ekipaapp.ui.location;
 
 import android.os.Bundle;
 import android.view.View;
@@ -12,15 +12,18 @@ import com.example.ekipaapp.R;
 import com.example.ekipaapp.entity.Location;
 import com.example.ekipaapp.viewmodel.LocationViewModel;
 
+import static com.example.ekipaapp.ui.location.LocationsActivity.EVENT_KEY;
+
 public class AddLocationActivity extends AppCompatActivity {
 
     private LocationViewModel viewModel;
+    private String eventKey;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_location_layout);
-
+        eventKey = getIntent().getStringExtra(EVENT_KEY);
         initialize();
     }
 
@@ -47,7 +50,7 @@ public class AddLocationActivity extends AppCompatActivity {
         if (!routeLengthText.isEmpty()) {
             newLocation.setRouteLength(Integer.parseInt(routeLengthText));
         }
-        viewModel.insertLocation(newLocation);
+        viewModel.insertLocationForEvent(newLocation, eventKey);
         finish();
     }
 
