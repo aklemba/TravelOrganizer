@@ -2,6 +2,7 @@ package com.example.ekipaapp.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.NonNull;
@@ -13,8 +14,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.ekipaapp.R;
 import com.example.ekipaapp.viewmodel.LocationViewModel;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
@@ -32,21 +31,6 @@ public class LocationsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.locations_activity);
         initialize();
-        if (!checkIfLoggedIn()) {
-            startLoginActivity();
-            finish();
-        }
-    }
-
-    private void startLoginActivity() {
-        Intent intent = new Intent(this, LoginActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(intent);
-    }
-
-    private boolean checkIfLoggedIn() {
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        return user != null;
     }
 
     private void initialize() {
@@ -72,13 +56,7 @@ public class LocationsActivity extends AppCompatActivity {
     }
 
     void initializeListeners() {
-        findViewById(R.id.logoutButton).setOnClickListener(this::logout);
         viewModel.getAllLocations().addValueEventListener(locationsListener);
-    }
-
-    private void logout(View view) {
-        FirebaseAuth.getInstance().signOut();
-        startLoginActivity();
     }
 
     private final ValueEventListener locationsListener = new ValueEventListener() {

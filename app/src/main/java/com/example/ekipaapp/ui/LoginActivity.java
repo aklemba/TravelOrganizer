@@ -48,12 +48,12 @@ public class LoginActivity extends AppCompatActivity {
                 Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show();
                 return;
             }
-            startMainActivity();
+            startMenuActivity();
         });
     }
 
-    private void startMainActivity() {
-        Intent intent = new Intent(this, LocationsActivity.class);
+    private void startMenuActivity() {
+        Intent intent = new Intent(this, MenuActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }
