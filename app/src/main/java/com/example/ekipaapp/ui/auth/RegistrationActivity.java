@@ -1,11 +1,15 @@
 package com.example.ekipaapp.ui.auth;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
-import android.util.Patterns;
+import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -72,9 +76,12 @@ public class RegistrationActivity extends AppCompatActivity {
             Toast.makeText(this, "Invalid credentials", Toast.LENGTH_LONG).show();
             return;
         }
+
+        showLoadingSpinner(true);
         firebaseAuth
                 .createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, task -> {
+                    showLoadingSpinner(false);
                     if (!task.isSuccessful()) {
                         Toast.makeText(this, "Registration failed", Toast.LENGTH_SHORT).show();
                         return;
@@ -87,5 +94,16 @@ public class RegistrationActivity extends AppCompatActivity {
         Intent intent = new Intent(this, MenuActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
+    }
+
+    private void showLoadingSpinner(boolean enable) {
+        if (enable) {
+            getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                    WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+            findViewById(R.id.registeringSpinner).setVisibility(View.VISIBLE);
+            return;
+        }
+        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+        findViewById(R.id.registeringSpinner).setVisibility(View.GONE);
     }
 }
