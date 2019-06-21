@@ -8,8 +8,6 @@ import com.example.ekipaapp.entity.Location;
 import com.example.ekipaapp.repo.LocationRepository;
 import com.google.firebase.database.DatabaseReference;
 
-import io.reactivex.Observable;
-import io.reactivex.Single;
 
 public class LocationViewModel extends AndroidViewModel {
 

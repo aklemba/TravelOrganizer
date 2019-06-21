@@ -2,23 +2,10 @@ package com.example.ekipaapp.repo;
 
 import android.app.Application;
 
-import androidx.annotation.NonNull;
-
-import com.example.ekipaapp.dao.FirebaseEventDao;
 import com.example.ekipaapp.dao.FirebaseLocationDao;
 import com.example.ekipaapp.entity.Location;
-import com.example.ekipaapp.firebase.FirebaseDatabaseConsts;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.ValueEventListener;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
-import io.reactivex.Observable;
-import io.reactivex.Single;
 
 public class LocationRepository {
 

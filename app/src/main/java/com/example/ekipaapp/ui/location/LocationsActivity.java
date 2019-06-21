@@ -25,7 +25,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import io.reactivex.disposables.CompositeDisposable;
 
 public class LocationsActivity extends AppCompatActivity {
 
@@ -33,7 +32,6 @@ public class LocationsActivity extends AppCompatActivity {
 
     private LocationViewModel viewModel;
     private String eventKey;
-    private CompositeDisposable composite = new CompositeDisposable();
     private String email;
     private LocationAdapter locationAdapter;
 
@@ -122,6 +120,5 @@ public class LocationsActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        composite.dispose();
     }
 }
