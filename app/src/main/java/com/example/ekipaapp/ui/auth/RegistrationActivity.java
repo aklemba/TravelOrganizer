@@ -2,6 +2,8 @@ package com.example.ekipaapp.ui.auth;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.util.Patterns;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -11,12 +13,15 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.ekipaapp.R;
 import com.example.ekipaapp.ui.MenuActivity;
-import com.example.ekipaapp.ui.event.EventsActivity;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
+
+import static com.example.ekipaapp.ui.auth.InputValidation.validateEmail;
+import static com.example.ekipaapp.ui.auth.InputValidation.validatePassword;
 
 public class RegistrationActivity extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
-    private EditText usernameEditText;
+    private EditText emailEditText;
     private EditText passwordEditText;
 
     @Override
@@ -28,17 +33,47 @@ public class RegistrationActivity extends AppCompatActivity {
     }
 
     private void init() {
-        usernameEditText = findViewById(R.id.newUsernameEditText);
+        emailEditText = findViewById(R.id.newEmailEditText);
+        TextInputLayout emailEditTextWrapper = findViewById(R.id.newEmailEditTextWrapper);
+        emailEditText.setOnFocusChangeListener((v, hasFocus) -> {
+            if (hasFocus) {
+                return;
+            }
+            Editable text = ((EditText) v).getText();
+            if (validateEmail(text) || text.length() == 0) {
+                emailEditTextWrapper.setError(null);
+                return;
+            }
+            emailEditTextWrapper.setError("Invalid email address");
+        });
+
         passwordEditText = findViewById(R.id.newPasswordEditText);
+        TextInputLayout passwordEditTextWrapper = findViewById(R.id.newPasswordEditTextWrapper);
+        passwordEditText.setOnFocusChangeListener((v, hasFocus) -> {
+            if (hasFocus) {
+                return;
+            }
+            Editable text = ((EditText) v).getText();
+            if (validatePassword(text) || text.length() == 0) {
+                passwordEditTextWrapper.setError(null);
+                return;
+            }
+            passwordEditTextWrapper.setError("Password needs to be at least 8 characters");
+        });
+
         Button registrationButton = findViewById(R.id.registerConfirmButton);
         registrationButton.setOnClickListener(v -> registerNewUser());
     }
 
     private void registerNewUser() {
-        String username = usernameEditText.getText().toString();
+        String email = emailEditText.getText().toString();
         String password = passwordEditText.getText().toString();
+        if (!validateEmail(email) || !validatePassword(password)) {
+            Toast.makeText(this, "Invalid credentials", Toast.LENGTH_LONG).show();
+            return;
+        }
         firebaseAuth
-                .createUserWithEmailAndPassword(username, password)
+                .createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, task -> {
                     if (!task.isSuccessful()) {
                         Toast.makeText(this, "Registration failed", Toast.LENGTH_SHORT).show();
