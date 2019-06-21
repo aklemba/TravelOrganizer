@@ -12,21 +12,30 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.ekipaapp.R;
+import com.example.ekipaapp.entity.Location;
+import com.example.ekipaapp.firebase.FirebaseDatabaseConsts;
 import com.example.ekipaapp.viewmodel.LocationViewModel;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+
+import io.reactivex.disposables.CompositeDisposable;
 
 public class LocationsActivity extends AppCompatActivity {
 
     public static final String EVENT_KEY = "eventKey";
 
-    private RecyclerView locationRecyclerList;
     private LocationViewModel viewModel;
     private String eventKey;
+    private CompositeDisposable composite = new CompositeDisposable();
+    private String email;
+    private LocationAdapter locationAdapter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -46,11 +55,17 @@ public class LocationsActivity extends AppCompatActivity {
     }
 
     private void initializeViews() {
-        locationRecyclerList = findViewById(R.id.location_list);
-        final LocationAdapter locationAdapter = new LocationAdapter(this, viewModel, eventKey);
+        RecyclerView locationRecyclerList = findViewById(R.id.location_list);
+        locationAdapter = new LocationAdapter(this, viewModel, eventKey);
         locationRecyclerList.setAdapter(locationAdapter);
         locationRecyclerList.setLayoutManager(new LinearLayoutManager(this));
+
         findViewById(R.id.open_add_location).setOnClickListener(this::openAddLocationActivity);
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user == null) {
+            return;
+        }
+        email = FirebaseAuth.getInstance().getCurrentUser().getEmail();
     }
 
     private void openAddLocationActivity(View view) {
@@ -67,10 +82,22 @@ public class LocationsActivity extends AppCompatActivity {
         @Override
         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
             List<DataSnapshot> locationList = new ArrayList<>();
+            int counter = 0;
             for (DataSnapshot locationSnapshot : dataSnapshot.getChildren()) {
                 locationList.add(locationSnapshot);
+
+                // Count the votes to check if there are any available
+                Location location = locationSnapshot.getValue(Location.class);
+                if (location == null) {
+                    return;
+                }
+                HashMap<String, String> votes = location.getVotes();
+                if (votes == null || !votes.containsValue(email)) {
+                    continue;
+                }
+                counter++;
             }
-            LocationAdapter locationAdapter = (LocationAdapter) locationRecyclerList.getAdapter();
+            locationAdapter.setAllowedToVote(counter < FirebaseDatabaseConsts.MAX_VOTES);
             locationAdapter.setLocationList(locationList);
         }
 
@@ -90,5 +117,11 @@ public class LocationsActivity extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
         viewModel.getAllLocations().removeEventListener(locationsListener);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        composite.dispose();
     }
 }

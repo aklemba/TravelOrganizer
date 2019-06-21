@@ -18,4 +18,5 @@
     <string name="add_event">Add event</string>
     <string name="confirm_adding_event">Confirm adding event</string>
     <string name="event_name">Event name</string>
+    <string name="vote">Vote</string>
 </resources>

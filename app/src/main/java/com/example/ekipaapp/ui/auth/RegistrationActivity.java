@@ -10,7 +10,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.ekipaapp.R;
-import com.example.ekipaapp.ui.location.LocationsActivity;
+import com.example.ekipaapp.ui.MenuActivity;
+import com.example.ekipaapp.ui.event.EventsActivity;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class RegistrationActivity extends AppCompatActivity {
@@ -48,7 +49,7 @@ public class RegistrationActivity extends AppCompatActivity {
     }
 
     private void startMainActivity() {
-        Intent intent = new Intent(this, LocationsActivity.class);
+        Intent intent = new Intent(this, MenuActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }

@@ -8,6 +8,9 @@ import com.example.ekipaapp.entity.Location;
 import com.example.ekipaapp.repo.LocationRepository;
 import com.google.firebase.database.DatabaseReference;
 
+import io.reactivex.Observable;
+import io.reactivex.Single;
+
 public class LocationViewModel extends AndroidViewModel {
 
     private LocationRepository repo;
@@ -43,5 +46,13 @@ public class LocationViewModel extends AndroidViewModel {
 
     public DatabaseReference getAllLocationsForEvent(String eventKey) {
         return repo.getAllLocationsForEvent(eventKey);
+    }
+
+    public void vote(String locationKey, String eventKey, String email) {
+        repo.vote(locationKey, eventKey, email);
+    }
+
+    public void unvote(String locationKey, String eventKey, String emailKey) {
+        repo.unvote(locationKey, eventKey, emailKey);
     }
 }

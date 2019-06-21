@@ -1,5 +1,7 @@
 package com.example.ekipaapp.entity;
 
+import java.util.HashMap;
+
 public class Location {
 
     private String name;
@@ -11,6 +13,8 @@ public class Location {
     private int rentalCostOverall;
 
     private int routeLength;
+
+    private HashMap<String, String> votes;
 
     public Location(){}
 
@@ -56,5 +60,13 @@ public class Location {
 
     public void setRouteLength(int routeLength) {
         this.routeLength = routeLength;
+    }
+
+    public HashMap<String, String> getVotes() {
+        return votes;
+    }
+
+    public void setVotes(HashMap<String, String> votes) {
+        this.votes = votes;
     }
 }
