@@ -19,4 +19,6 @@
     <string name="confirm_adding_event">Confirm adding event</string>
     <string name="event_name">Event name</string>
     <string name="vote">Vote</string>
+    <string name="menu">Menu</string>
+    <string name="loginLabel">Login</string>
 </resources>

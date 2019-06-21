@@ -8,7 +8,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.MenuActivity">
+        <activity
+            android:name=".ui.MenuActivity"
+            android:label="@string/menu">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -17,7 +19,9 @@
         <activity android:name=".ui.location.LocationsActivity"/>
         <activity android:name=".ui.location.AddLocationActivity" />
         <activity android:name=".ui.location.EditLocationActivity" />
-        <activity android:name=".ui.auth.LoginActivity" />
+        <activity
+            android:name=".ui.auth.LoginActivity"
+            android:label="@string/loginLabel"/>
         <activity android:name=".ui.auth.RegistrationActivity" />
         <activity android:name=".ui.event.EventsActivity" />
         <activity android:name=".ui.event.AddEventActivity" />
