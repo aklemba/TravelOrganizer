@@ -25,7 +25,9 @@
         <activity
             android:name=".ui.auth.RegistrationActivity"
             android:label="@string/registrationLabel"/>
-        <activity android:name=".ui.event.EventsActivity" />
+        <activity
+            android:name=".ui.event.EventsActivity"
+            android:label="@string/events"/>
         <activity android:name=".ui.event.AddEventActivity" />
     </application>
 </manifest>
