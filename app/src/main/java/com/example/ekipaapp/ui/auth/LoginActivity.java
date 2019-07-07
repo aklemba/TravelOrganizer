@@ -101,10 +101,10 @@ public class LoginActivity extends AppCompatActivity {
         if (enable) {
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
                     WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-            findViewById(R.id.loggingSpinner).setVisibility(View.VISIBLE);
+            findViewById(R.id.loadingSpinner).setVisibility(View.VISIBLE);
             return;
         }
         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-        findViewById(R.id.loggingSpinner).setVisibility(View.GONE);
+        findViewById(R.id.loadingSpinner).setVisibility(View.GONE);
     }
 }

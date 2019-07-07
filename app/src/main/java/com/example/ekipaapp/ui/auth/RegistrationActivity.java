@@ -1,7 +1,5 @@
 package com.example.ekipaapp.ui.auth;
 
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -9,7 +7,6 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -100,10 +97,10 @@ public class RegistrationActivity extends AppCompatActivity {
         if (enable) {
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
                     WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-            findViewById(R.id.registeringSpinner).setVisibility(View.VISIBLE);
+            findViewById(R.id.loadingSpinner).setVisibility(View.VISIBLE);
             return;
         }
         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-        findViewById(R.id.registeringSpinner).setVisibility(View.GONE);
+        findViewById(R.id.loadingSpinner).setVisibility(View.GONE);
     }
 }
