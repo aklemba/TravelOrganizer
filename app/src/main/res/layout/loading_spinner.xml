@@ -8,7 +8,7 @@
     android:visibility="gone"
     android:clickable="true"
     tools:ignore="KeyboardInaccessibleWidget"
-    tools:showIn="@layout/login_activity">
+    tools:showIn="@layout/event_activity">
 
     <ProgressBar
         style="?android:attr/progressBarStyle"

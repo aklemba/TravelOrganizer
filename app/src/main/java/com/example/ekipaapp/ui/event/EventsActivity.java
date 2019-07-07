@@ -2,6 +2,9 @@ package com.example.ekipaapp.ui.event;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.view.WindowManager;
+import android.widget.FrameLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -23,6 +26,7 @@ public class EventsActivity extends AppCompatActivity {
 
     private EventsAdapter eventsAdapter;
     private EventViewModel eventViewModel;
+    private FrameLayout loadingSpinner;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -38,6 +42,7 @@ public class EventsActivity extends AppCompatActivity {
         eventRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         eventRecyclerView.setAdapter(eventsAdapter);
         findViewById(R.id.addEventButton).setOnClickListener(v -> startAddEventActivity());
+        loadingSpinner = findViewById(R.id.loadingSpinner);
     }
 
     private void startAddEventActivity() {
@@ -49,6 +54,18 @@ public class EventsActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         eventViewModel.getAllEvents().addValueEventListener(listener);
+        enableLoadingSpinner(true);
+    }
+
+    private void enableLoadingSpinner(boolean enable) {
+        if (!enable) {
+            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+            loadingSpinner.setVisibility(View.GONE);
+            return;
+        }
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+        loadingSpinner.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -60,11 +77,13 @@ public class EventsActivity extends AppCompatActivity {
     ValueEventListener listener = new ValueEventListener() {
         @Override
         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+            enableLoadingSpinner(true);
             List<DataSnapshot> eventList = new ArrayList<>();
             for (DataSnapshot data : dataSnapshot.getChildren()) {
                 eventList.add(data);
             }
             eventsAdapter.setEventList(eventList);
+            enableLoadingSpinner(false);
         }
 
         @Override

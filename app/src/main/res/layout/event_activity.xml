@@ -36,4 +36,6 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_end="30dp" />
+
+    <include layout="@layout/loading_spinner" />
 </androidx.constraintlayout.widget.ConstraintLayout>
