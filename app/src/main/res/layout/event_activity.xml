@@ -18,7 +18,7 @@
         android:id="@+id/addEventButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_add_black_48dp"
+        android:src="@drawable/ic_add_black_24dp"
         android:scaleType="center"
         app:layout_constraintBottom_toBottomOf="parent" android:layout_marginBottom="30dp"
         app:layout_constraintEnd_toStartOf="@id/eventsGuidelineEnd"/>
